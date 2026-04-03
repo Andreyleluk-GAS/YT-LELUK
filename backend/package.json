@@ -1,0 +1,16 @@
+{
+  "name": "proxy-backend",
+  "version": "1.0.0",
+  "description": "VLESS Manager & yt-dlp Video Streamer",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "yt-dlp-exec": "^0.3.0"
+  }
+}
