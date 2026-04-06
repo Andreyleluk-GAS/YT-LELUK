@@ -73,18 +73,6 @@ export default function Home() {
     setActiveVideo({ id, title });
   };
 
-  if (activeVideo) {
-    return (
-      <div style={{ height: '100vh', width: '100vw', backgroundColor: 'black' }}>
-        <VideoPlayer 
-          src={`/api/stream?v=${activeVideo.id}`} 
-          title={activeVideo.title}
-          onBack={() => setActiveVideo(null)} 
-        />
-      </div>
-    );
-  }
-
   return (
     <div style={{ backgroundColor: '#0f0f0f', minHeight: '100vh', color: 'white', fontFamily: 'sans-serif' }}>
       <style>{`
@@ -285,6 +273,14 @@ export default function Home() {
 
       {results.length === 0 && !isSearching && searchQuery && !errorText && (
         <p style={{ textAlign: 'center', color: '#aaaaaa', marginTop: '40px' }}>Ничего не найдено</p>
+      )}
+
+      {activeVideo && (
+        <VideoPlayer 
+          src={`/api/stream?v=${activeVideo.id}`} 
+          title={activeVideo.title}
+          onBack={() => setActiveVideo(null)} 
+        />
       )}
     </div>
   );
