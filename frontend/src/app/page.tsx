@@ -13,7 +13,7 @@ export default function Home() {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
   const handleSearch = async () => {
-    if (!searchQuery) return;
+    if (!searchQuery.trim()) return;
     setIsSearching(true);
     setErrorText('');
     try {
@@ -38,9 +38,8 @@ export default function Home() {
     return (
       <div className="container" style={{ padding: '0', height: '100vh', display: 'flex', flexDirection: 'column' }}>
         <button 
-          className="btn-huge" 
           onClick={() => setActiveVideo(null)}
-          style={{ width: '100%', margin: '0', borderRadius: '0', background: '#333', color: 'white', padding: '20px', fontSize: '2rem' }}
+          style={{ width: '100%', margin: '0', borderRadius: '0', background: '#333', color: 'white', padding: '15px', fontSize: '16px', border: 'none', cursor: 'pointer' }}
         >
           ⬅ Назад к результатам
         </button>
@@ -54,50 +53,48 @@ export default function Home() {
   }
 
   return (
-    <div className="container" style={{ padding: '20px', maxWidth: '1200px' }}>
-      <h2 className="title" style={{ marginTop: '10px', marginBottom: '30px', fontSize: '3rem', textAlign: 'center' }}>YouTube Поиск</h2>
+    <div className="container" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+      <h2 style={{ marginTop: '10px', marginBottom: '30px', fontSize: '24px', textAlign: 'center', color: 'white' }}>YouTube Поиск</h2>
       
-      {errorText && <p style={{ color: 'var(--error)', fontSize: '1.8rem', textAlign: 'center', marginBottom: '20px' }}>{errorText}</p>}
+      {errorText && <p style={{ color: '#ff4444', fontSize: '16px', textAlign: 'center', marginBottom: '20px' }}>{errorText}</p>}
       
-      <div className="search-box" style={{ display: 'flex', gap: '15px', marginBottom: '40px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '10px', marginBottom: '40px' }}>
         <input 
-          className="input-huge" 
-          style={{ flex: 1, padding: '25px', fontSize: '2rem', borderRadius: '12px', marginBottom: 0 }}
-          placeholder="Поисковой запрос или ссылка..." 
+          style={{ width: '80%', maxWidth: '600px', backgroundColor: 'white', border: '2px solid black', color: 'black', padding: '10px 15px', fontSize: '16px', borderRadius: '4px', outline: 'none' }}
+          placeholder="Введите название видео..." 
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleSearch()}
         />
         <button 
-          className="btn-huge primary" 
-          style={{ padding: '25px 40px', fontSize: '2rem', borderRadius: '12px', minWidth: '160px' }} 
+          style={{ backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '10px 20px', fontSize: '16px', borderRadius: '4px', cursor: 'pointer' }} 
           onClick={handleSearch}
         >
-          {isSearching ? '⏳...' : '🔍 Искать'}
+          {isSearching ? '⏳...' : 'Искать'}
         </button>
       </div>
 
-      <div className="search-results" style={{ display: 'grid', gap: '20px', gridTemplateColumns: '1fr' }}>
+      <div className="search-results" style={{ display: 'grid', gap: '15px', gridTemplateColumns: '1fr' }}>
         {results.map((video: any) => (
           <div 
             key={video.id} 
             className="video-card" 
             onClick={() => playVideo(video.id)}
-            style={{ display: 'flex', gap: '20px', backgroundColor: '#222', padding: '15px', borderRadius: '15px', cursor: 'pointer', alignItems: 'center' }}
+            style={{ display: 'flex', gap: '15px', backgroundColor: '#222', padding: '10px', borderRadius: '8px', cursor: 'pointer', alignItems: 'center' }}
           >
             <img 
               src={video.thumbnail} 
               alt={video.title} 
-              style={{ width: '240px', height: '135px', objectFit: 'cover', borderRadius: '8px' }} 
+              style={{ width: '160px', height: '90px', objectFit: 'cover', borderRadius: '4px' }} 
             />
             <div className="video-info" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontSize: '2rem', marginBottom: '10px', color: 'white', lineHeight: '1.3' }}>{video.title}</h3>
-              <span style={{ fontSize: '1.5rem', color: '#aaa' }}>{video.uploader} • {video.duration}</span>
+              <h3 style={{ fontSize: '18px', margin: '0 0 5px 0', color: 'white', lineHeight: '1.3' }}>{video.title}</h3>
+              <span style={{ fontSize: '14px', color: '#aaa' }}>{video.uploader} • {video.duration}</span>
             </div>
           </div>
         ))}
         {results.length === 0 && !isSearching && searchQuery && !errorText && (
-          <p style={{ textAlign: 'center', fontSize: '2rem', color: 'var(--text-secondary)', marginTop: '50px' }}>Ничего не найдено</p>
+          <p style={{ textAlign: 'center', fontSize: '16px', color: '#aaa', marginTop: '30px' }}>Ничего не найдено</p>
         )}
       </div>
     </div>
