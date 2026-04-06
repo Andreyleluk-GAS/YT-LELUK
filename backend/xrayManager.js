@@ -3,6 +3,8 @@ import { spawn } from 'child_process';
 
 let xrayProcess = null;
 
+const MY_VLESS_URI = 'ВСТАВЬ_СЮДА_СВОЮ_VLESS_ССЫЛКУ';
+
 /**
  * Parses a VLESS URI and extracts its components..
  */
@@ -132,8 +134,7 @@ export async function startXray() {
     xrayProcess = null;
   }
 
-  const vlessUri = 'vless://ТВОЯ_ССЫЛКА_ЗДЕСЬ';
-  const details = parseVlessUri(vlessUri);
+  const details = parseVlessUri(MY_VLESS_URI);
   const config = generateXrayConfig(details);
 
   const configPath = './xray-config.json';

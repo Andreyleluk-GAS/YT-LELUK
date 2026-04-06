@@ -74,6 +74,13 @@ app.get('/api/stream', (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, '0.0.0.0', async () => {
   console.log(`Backend API запущен на порту ${PORT}`);
+  try {
+    currentProxyPorts = await startXray();
+    isProxyRunning = true;
+    console.log('Xray-core успешно запущен при старте сервера');
+  } catch (error) {
+    console.error('Ошибка при запуске Xray-core при старте:', error.message);
+  }
 });

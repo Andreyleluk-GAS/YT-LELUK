@@ -88,7 +88,7 @@ export function pipeVideoToClient(req, res, videoIdOrUrl) {
   // Пайпим напрямую в стандартный вывод (-o -) без сохранения на диск сервера.
   const args = [
     ...getBaseArgs(),
-    '-f', 'best[height<=720]', 
+    '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', 
     '-o', '-', 
     '--no-playlist',
     url
