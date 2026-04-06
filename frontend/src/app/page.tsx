@@ -10,14 +10,13 @@ export default function Home() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [errorText, setErrorText] = useState('');
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
     setIsSearching(true);
     setErrorText('');
     try {
-      const res = await fetch(`${backendUrl}/api/search?q=${encodeURIComponent(searchQuery)}`);
+      const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
       const data = await res.json();
       if (data.success) {
         setResults(data.data);
@@ -31,7 +30,7 @@ export default function Home() {
   };
 
   const playVideo = (id: string) => {
-    setActiveVideo(`${backendUrl}/api/stream?v=${id}`);
+    setActiveVideo(`/api/stream?v=${id}`);
   };
 
   if (activeVideo) {
