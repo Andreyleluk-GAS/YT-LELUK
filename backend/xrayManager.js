@@ -4,7 +4,7 @@ import { spawn } from 'child_process';
 let xrayProcess = null;
 
 /**
- * Parses a VLESS URI and extracts its components.
+ * Parses a VLESS URI and extracts its components..
  */
 function parseVlessUri(uri) {
   try {
@@ -123,15 +123,16 @@ function generateXrayConfig(vlessDetails) {
 }
 
 /**
- * Stops any existing Xray process and starts a new one with the given VLESS URI.
+ * Stops any existing Xray process and starts a new one with the hardcoded VLESS URI.
  */
-export async function startXray(vlessUri) {
+export async function startXray() {
   if (xrayProcess) {
     console.log('Остановка предыдущего процесса Xray...');
     xrayProcess.kill();
     xrayProcess = null;
   }
 
+  const vlessUri = 'vless://ТВОЯ_ССЫЛКА_ЗДЕСЬ';
   const details = parseVlessUri(vlessUri);
   const config = generateXrayConfig(details);
 
@@ -142,7 +143,7 @@ export async function startXray(vlessUri) {
     // В Docker бинарник Xray будет установлен в /usr/local/bin/xray
     // Но для локальной отладки мы используем просто 'xray' (или нужно указать полный путь)
     const executable = process.env.XRAY_PATH || 'xray';
-    
+
     xrayProcess = spawn(executable, ['-c', configPath]);
 
     xrayProcess.on('error', (err) => {

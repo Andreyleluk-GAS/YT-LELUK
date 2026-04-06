@@ -83,12 +83,12 @@ export async function searchYoutube(query) {
 export function pipeVideoToClient(req, res, videoIdOrUrl) {
   const url = videoIdOrUrl.startsWith('http') ? videoIdOrUrl : `https://www.youtube.com/watch?v=${videoIdOrUrl}`;
   
-  // Выбираем формат, обеспечивающий минимальную задержку: мы берём 'best' 
+  // Выбираем формат, обеспечивающий минимальную задержку: мы берём 'best[height<=720]' 
   // (обычно это 720p с уже объединённым аудио и видео - идеально для экранов авто).
-  // Пайпим সরাসরি в стандартный вывод (-o -) без сохранения на диск сервера.
+  // Пайпим напрямую в стандартный вывод (-o -) без сохранения на диск сервера.
   const args = [
     ...getBaseArgs(),
-    '-f', 'best', 
+    '-f', 'best[height<=720]', 
     '-o', '-', 
     '--no-playlist',
     url

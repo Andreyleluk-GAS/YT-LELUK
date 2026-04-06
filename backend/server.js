@@ -20,15 +20,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Endpoint to receive VLESS URI and start proxy
+// Endpoint to start proxy
 app.post('/api/proxy/start', async (req, res) => {
-  const { vlessUri } = req.body;
-  if (!vlessUri) {
-    return res.status(400).json({ error: 'Необходимо передать vlessUri' });
-  }
-
   try {
-    currentProxyPorts = await startXray(vlessUri);
+    currentProxyPorts = await startXray();
     isProxyRunning = true;
     res.json({
       success: true,
