@@ -1,24 +1,15 @@
 version: '3.8'
-
 services:
-  frontend:
-    build:
-      context: ./frontend
+  backend:
+    build: ./backend
+    restart: always
     ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8080
+      - "3077:8080" # Оставляем для отладки
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "80:3000" # Сайт будет доступен сразу по IP без порта
     depends_on:
       - backend
-    restart: unless-stopped
-
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - "8080:8080"
-    privileged: true
-    restart: unless-stopped
-    volumes:
-      # Optional volume to persist Xray configs if needed
-      - ./backend/data:/app/data
